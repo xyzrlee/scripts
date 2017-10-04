@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo 'mtr'
+echo `date -R`
+
+statFileDir="${HOME}/auto-generate"
+
+if [ ! -d ${statFileDir} ]; then
+        mkdir ${statFileDir}
+fi
+
+echo ${statFileDir}
+
+mtr 106.186.121.152 -c 100 -r -n > ${statFileDir}/mtr.001.LinodeM01.ip 2>&1 
+mtr 198.199.109.152 -c 100 -r -n > ${statFileDir}/mtr.002.DigitalOceanM01.ip 2>&1 
+
+exit 0

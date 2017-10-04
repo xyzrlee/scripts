@@ -1,0 +1,11 @@
+#!/bin/bash
+
+ouf="/srv/ftp/random.file"
+
+if [ -f ${ouf} ];
+then
+    rm -rf ${ouf}
+fi
+
+echo `date -R` > ${ouf}
+cat /proc/sys/kernel/random/uuid >> ${ouf}

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo 'rinetd-yesterday'
+echo `date -R`
+
+statFileDir="${HOME}/auto-generate"
+shFileDir=/home/xyz/script
+
+if [ ! -d ${statFileDir} ]; then
+        mkdir ${statFileDir}
+fi
+
+echo ${statFileDir}
+
+${shFileDir}/rinetd.stat.sh 101 > ${statFileDir}/rinetd.101.yesterday.verbose 2>&1
+${shFileDir}/rinetd.stat.sh 102 > ${statFileDir}/rinetd.102.yesterday.lip_lport 2>&1
+${shFileDir}/rinetd.stat.sh 103 > ${statFileDir}/rinetd.103.yesterday.sip 2>&1
+${shFileDir}/rinetd.stat.sh 104 > ${statFileDir}/rinetd.104.yesterday.dip_dport 2>&1
+
+exit 0
