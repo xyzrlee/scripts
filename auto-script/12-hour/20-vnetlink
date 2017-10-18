@@ -7,5 +7,6 @@ if [ ! -d ${logdir} ]; then
 fi
 
 logcn2="${logdir}/vnetcn2"
-curl https://linodem01.melee.one/ftp/random.file -o ${logcn2} -v --socks5 127.0.0.1:50002
-curl https://linodem01.melee.one/ftp/zero_1MiB.file --socks5 127.0.0.1:50002
+curl https://linodem01.melee.one/ftp/random.file -o ${logcn2} -v --socks5 127.0.0.1:50091
+curl https://linodem01.melee.one/ftp/zero_1MiB.file --socks5 127.0.0.1:50091
+curl https://linodem01.melee.one/ftp/zero_1MiB.file --socks5 127.0.0.1:50092
