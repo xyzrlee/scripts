@@ -1,11 +1,12 @@
 #!/bin/bash
 set -e
 sudo apt-get install gettext build-essential autoconf libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake
-if [ -d /tmp/workspace ]; then
-    rm -rf /tmp/workspace
+tmpdir="/tmp/`cat /proc/sys/kernel/random/uuid`"
+if [ -d ${tmpdir} ]; then
+    rm -rf ${tmpdir}
 fi
-mkdir -p /tmp/workspace
-pushd /tmp/workspace
+mkdir -p ${tmpdir}
+pushd ${tmpdir}
 git clone https://github.com/shadowsocks/shadowsocks-libev.git
 git clone https://github.com/shadowsocks/simple-obfs.git
 git clone https://github.com/ARMmbed/mbedtls.git
@@ -36,4 +37,4 @@ make
 sudo make install
 popd
 popd
-
+rm -rf ${tmpdir}
