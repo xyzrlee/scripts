@@ -39,3 +39,8 @@ sudo make install
 popd
 popd
 rm -rf ${tmpdir}
+sudo cp shadowsocks-libev-server@.service /etc/systemd/system
+sudo cp shadowsocks-libev-local@.service /etc/systemd/system
+sudo cp 30-shadowsocks-libev.conf /etc/rsyslog.d 
+sudo cp shadowsocks-libev /etc/logrotate.d
+sudo systemctl restart rsyslog
