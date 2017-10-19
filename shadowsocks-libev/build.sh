@@ -43,4 +43,6 @@ sudo cp systemd/shadowsocks-libev-server@.service /etc/systemd/system
 sudo cp systemd/shadowsocks-libev-local@.service /etc/systemd/system
 sudo cp rsyslog/30-shadowsocks-libev.conf /etc/rsyslog.d 
 sudo cp logrotate/shadowsocks-libev /etc/logrotate.d
+sudo cp sysctl/01-local.conf /etc/sysctl.d
 sudo systemctl restart rsyslog
+sudo sysctl -p
