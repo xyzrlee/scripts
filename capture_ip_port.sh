@@ -1,6 +1,7 @@
 #!/bin/bash
 
-outfile=/srv/ftp/capture/capture_`date +"%Y%m%d-%H%M%S-%N"`.cap
+mkdir -p /tmp/capture
+outfile=/tmp/capture/capture_`date +"%Y%m%d-%H%M%S-%N"`.cap
 port=$2
 ip=$1
 
