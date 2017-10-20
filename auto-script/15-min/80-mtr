@@ -3,15 +3,21 @@
 echo 'mtr'
 echo `date -R`
 
-statFileDir="${HOME}/auto-generate"
+scriptFileDir=$(cd "$(dirname "$0")"; pwd)
+echo ${scriptFileDir}
+statFileDir="${HOME}/auto-generate/mtr"
+echo ${statFileDir}
 
 if [ ! -d ${statFileDir} ]; then
         mkdir ${statFileDir}
 fi
 
-echo ${statFileDir}
+rm -rf ${statFileDir}/*
 
-mtr jpn.melee.one -c 100 -r -n > ${statFileDir}/mtr.001.LinodeJPN 2>&1 
-mtr jpn2.melee.one -c 100 -r -n > ${statFileDir}/mtr.002.LinodeJPN2 2>&1 
+while read line
+do
+	fileName="${statFileDir}/mtr.${line}"
+    echo ${line}
+    mtr -c 20 -r -n ${line} >${fileName}
+done < ${scriptFileDir}/mtr.list
 
-exit 0
