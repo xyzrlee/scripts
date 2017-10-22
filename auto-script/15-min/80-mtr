@@ -17,7 +17,7 @@ rm -rf ${statFileDir}/*
 while read line
 do
 	fileName="${statFileDir}/mtr.${line}"
-    echo ${line}
-    mtr -c 20 -r -n ${line} >${fileName}
+    echo ${line} >${fileName}
+    mtr -c 20 -r -n ${line} >>${fileName}
 done < ${scriptFileDir}/mtr.list
 
