@@ -1,4 +1,4 @@
-/var/log/shadowsocks-libev/ss-server-*.log
+/var/log/shadowsocks-libev/*.log
 {
     daily
     rotate 14
