@@ -6,7 +6,10 @@ if [ ! -d ${logdir} ]; then
         mkdir -p ${logdir}
 fi
 
-logcn2="${logdir}/vnetcn2"
-curl https://linodem01.melee.one/ftp/random.file -o ${logcn2} -v --socks5 127.0.0.1:50091
-curl https://linodem01.melee.one/ftp/zero_1MiB.file --socks5 127.0.0.1:50091
-curl https://linodem01.melee.one/ftp/zero_1MiB.file --socks5 127.0.0.1:50092
+rm ${logdir}/ss-local-*
+
+curl https://jpn.melee.one/ftp/random.file -o ${logdir}/random.file -v
+curl https://jpn.melee.one/ftp/zero_1MiB.file -o ${logdir}/ss-local-50091.file --socks5 127.0.0.1:50091 -v
+curl https://jpn.melee.one/ftp/zero_1MiB.file -o ${logdir}/ss-local-50092.file --socks5 127.0.0.1:50092 -v
+curl https://jpn.melee.one/ftp/zero_1MiB.file -o ${logdir}/ss-local-50093.file --socks5 127.0.0.1:50093 -v
+curl https://jpn.melee.one/ftp/zero_1MiB.file -o ${logdir}/ss-local-50094.file --socks5 127.0.0.1:50094 -v
