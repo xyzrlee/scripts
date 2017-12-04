@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 sudo apt-get update
-sudo apt-get install gettext build-essential autoconf libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake
+sudo apt-get install -y gettext build-essential autoconf libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake
 tmpdir="/tmp/`cat /proc/sys/kernel/random/uuid`"
 if [ -d ${tmpdir} ]; then
     rm -rf ${tmpdir}
