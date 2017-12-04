@@ -13,6 +13,7 @@ git clone https://github.com/shadowsocks/simple-obfs.git
 git clone https://github.com/ARMmbed/mbedtls.git
 git clone https://github.com/jedisct1/libsodium.git
 pushd libsodium
+git checkout stable
 ./autogen.sh
 ./configure --prefix=/usr && make
 sudo make install
