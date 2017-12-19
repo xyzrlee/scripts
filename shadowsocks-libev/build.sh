@@ -2,7 +2,7 @@
 set -e
 sudo apt-get update
 sudo apt-get install -y gettext build-essential autoconf libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake
-tmpdir="/tmp/`cat /proc/sys/kernel/random/uuid`"
+tmpdir="/tmp/xyzrlee/shadowsocks-libev"
 if [ -d ${tmpdir} ]; then
     rm -rf ${tmpdir}
 fi
