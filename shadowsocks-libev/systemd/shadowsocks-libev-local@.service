@@ -19,6 +19,7 @@ Type=simple
 CapabilityBoundingSet=CAP_NET_BIND_SERVICE
 ExecStart=/usr/local/bin/ss-local -c /etc/shadowsocks-libev/ss-local-%i.json -u -v
 SyslogIdentifier=ss-local-%i
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
