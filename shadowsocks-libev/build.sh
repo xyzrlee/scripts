@@ -37,6 +37,10 @@ git submodule init && git submodule update
 ./configure
 make
 sudo make install
+if [ -d /etc/shadowsocks-libev ]; then
+    sudo mkdir -p /etc/shadowsocks-libev
+fi
+sudo cp ./acl/gfwlist.acl /etc/shadowsocks-libev
 popd
 popd
 rm -rf ${tmpdir}
