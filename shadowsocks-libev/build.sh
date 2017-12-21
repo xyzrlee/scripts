@@ -7,34 +7,10 @@ if [ ! -d ${tmpdir} ]; then
     mkdir -p ${tmpdir}
 fi
 pushd ${tmpdir}
-if [ -x shadowsocks-libev/.git ]; then
-    pushd shadowsocks-libev
-    git pull
-    popd
-else
-    git clone https://github.com/shadowsocks/shadowsocks-libev.git
-fi
-if [ -x simple-obfs/.git ]; then
-    pushd simple-obfs
-    git pull
-    popd
-else
-    git clone https://github.com/shadowsocks/simple-obfs.git
-fi
-if [ -x mbedtls/.git ]; then
-    pushd mbedtls
-    git pull
-    popd
-else
-    git clone https://github.com/ARMmbed/mbedtls.git
-fi
-if [ -x libsodium/.git ]; then
-    pushd libsodium
-    git pull
-    popd
-else
-    git clone https://github.com/jedisct1/libsodium.git
-fi
+git -C shadowsocks-libev pull   || git clone https://github.com/shadowsocks/shadowsocks-libev.git
+git -C simple-obfs pull         || git clone https://github.com/shadowsocks/simple-obfs.git
+git -C mbedtls pull             || git clone https://github.com/ARMmbed/mbedtls.git
+git -C libsodium pull           || git clone https://github.com/jedisct1/libsodium.git
 pushd libsodium
 git checkout stable
 ./autogen.sh
