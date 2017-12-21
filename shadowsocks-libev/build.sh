@@ -1,8 +1,13 @@
 #!/bin/bash
 set -e
+if [ -z "${1}" ]; then
+    tmpdir=/tmp/xyzrlee/shadowsocks-libev
+else
+    tmpdir=${1}
+fi
+echo ${tmpdir}
 sudo apt-get update
 sudo apt-get install -y gettext build-essential autoconf libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake
-tmpdir="/tmp/xyzrlee/shadowsocks-libev"
 if [ ! -d ${tmpdir} ]; then
     mkdir -p ${tmpdir}
 fi
@@ -42,7 +47,6 @@ fi
 sudo cp ./acl/gfwlist.acl /etc/shadowsocks-libev
 popd
 popd
-rm -rf ${tmpdir}
 [ ! -e /etc/systemd/system/shadowsocks-libev-server@.service ] && sudo cp systemd/shadowsocks-libev-server@.service /etc/systemd/system
 [ ! -e /etc/systemd/system/shadowsocks-libev-local@.service ] && sudo cp systemd/shadowsocks-libev-local@.service /etc/systemd/system
 [ ! -e /etc/rsyslog.d/30-shadowsocks-libev.conf ] && sudo cp rsyslog/30-shadowsocks-libev.conf /etc/rsyslog.d && sudo systemctl restart rsyslog
