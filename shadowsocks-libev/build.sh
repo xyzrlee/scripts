@@ -3,15 +3,38 @@ set -e
 sudo apt-get update
 sudo apt-get install -y gettext build-essential autoconf libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake
 tmpdir="/tmp/xyzrlee/shadowsocks-libev"
-if [ -d ${tmpdir} ]; then
-    rm -rf ${tmpdir}
+if [ ! -d ${tmpdir} ]; then
+    mkdir -p ${tmpdir}
 fi
-mkdir -p ${tmpdir}
 pushd ${tmpdir}
-git clone https://github.com/shadowsocks/shadowsocks-libev.git
-git clone https://github.com/shadowsocks/simple-obfs.git
-git clone https://github.com/ARMmbed/mbedtls.git
-git clone https://github.com/jedisct1/libsodium.git
+if [ -x shadowsocks-libev/.git ]; then
+    pushd shadowsocks-libev
+    git pull
+    popd
+else
+    git clone https://github.com/shadowsocks/shadowsocks-libev.git
+fi
+if [ -x simple-obfs/.git ]; then
+    pushd simple-obfs
+    git pull
+    popd
+else
+    git clone https://github.com/shadowsocks/simple-obfs.git
+fi
+if [ -x mbedtls/.git ]; then
+    pushd mbedtls
+    git pull
+    popd
+else
+    git clone https://github.com/ARMmbed/mbedtls.git
+fi
+if [ -x libsodium/.git ]; then
+    pushd libsodium
+    git pull
+    popd
+else
+    git clone https://github.com/jedisct1/libsodium.git
+fi
 pushd libsodium
 git checkout stable
 ./autogen.sh
