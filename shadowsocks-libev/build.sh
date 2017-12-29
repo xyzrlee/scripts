@@ -1,17 +1,24 @@
 #!/bin/bash
 set -e
-if [ -z "${1}" ]; then
-    tmpdir=/tmp/xyzrlee/shadowsocks-libev
-else
-    tmpdir=${1}
-fi
-echo ${tmpdir}
+install=off
+dir=/tmp/xyzrlee/shadowsocks-libev
+while getopts "id:" opt; do
+    case ${opt} in
+        i)
+            install=on
+            echo "Install mode is ON"
+            ;;
+        d)
+            dir=${OPTARG}
+    esac
+done
+echo ${dir}
 sudo apt-get update
 sudo apt-get install -y gettext build-essential autoconf libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake
-if [ ! -d ${tmpdir} ]; then
-    mkdir -p ${tmpdir}
+if [ ! -d ${dir} ]; then
+    mkdir -p ${dir}
 fi
-pushd ${tmpdir}
+pushd ${dir}
 git -C shadowsocks-libev pull   || git clone https://github.com/shadowsocks/shadowsocks-libev.git
 git -C simple-obfs pull         || git clone https://github.com/shadowsocks/simple-obfs.git
 git -C mbedtls pull             || git clone https://github.com/ARMmbed/mbedtls.git
@@ -40,15 +47,15 @@ git submodule init && git submodule update
 ./autogen.sh
 ./configure
 make
-sudo make install
-if [ -d /etc/shadowsocks-libev ]; then
-    sudo mkdir -p /etc/shadowsocks-libev
+[ "${install}" == "on" ] && sudo make install
+popd
+if [ "${install}" == "on" ]; then
+    [ ! -d /etc/shadowsocks-libev ] && sudo mkdir -p /etc/shadowsocks-libev
+    sudo cp -v ./shadowsocks-libev/acl/gfwlist.acl /etc/shadowsocks-libev
+    [ ! -e /etc/systemd/system/shadowsocks-libev-server@.service ] && sudo cp -v systemd/shadowsocks-libev-server@.service /etc/systemd/system && sudo systemctl daemon-reload
+    [ ! -e /etc/systemd/system/shadowsocks-libev-local@.service ] && sudo cp -v systemd/shadowsocks-libev-local@.service /etc/systemd/system && sudo systemctl daemon-reload
+    [ ! -e /etc/rsyslog.d/30-shadowsocks-libev.conf ] && sudo cp -v rsyslog/30-shadowsocks-libev.conf /etc/rsyslog.d && sudo systemctl restart rsyslog
+    [ ! -e /etc/logrotate.d/shadowsocks-libev ] && sudo cp -v logrotate/shadowsocks-libev /etc/logrotate.d
+    [ ! -e /etc/sysctl.d/01-local.conf ] && sudo cp -v sysctl/01-local.conf /etc/sysctl.d && sudo sysctl -p
 fi
-sudo cp ./acl/gfwlist.acl /etc/shadowsocks-libev
 popd
-popd
-[ ! -e /etc/systemd/system/shadowsocks-libev-server@.service ] && sudo cp -v systemd/shadowsocks-libev-server@.service /etc/systemd/system && sudo systemctl daemon-reload
-[ ! -e /etc/systemd/system/shadowsocks-libev-local@.service ] && sudo cp -v systemd/shadowsocks-libev-local@.service /etc/systemd/system && sudo systemctl daemon-reload
-[ ! -e /etc/rsyslog.d/30-shadowsocks-libev.conf ] && sudo cp -v rsyslog/30-shadowsocks-libev.conf /etc/rsyslog.d && sudo systemctl restart rsyslog
-[ ! -e /etc/logrotate.d/shadowsocks-libev ] && sudo cp -v logrotate/shadowsocks-libev /etc/logrotate.d
-[ ! -e /etc/sysctl.d/01-local.conf ] && sudo cp -v sysctl/01-local.conf /etc/sysctl.d && sudo sysctl -p
