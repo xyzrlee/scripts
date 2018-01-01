@@ -1,13 +1,8 @@
 #!/bin/bash
 set -e
-install=off
 dir=/tmp/xyzrlee/shadowsocks-libev
 while getopts "id:" opt; do
     case ${opt} in
-        i)
-            install=on
-            echo "Install mode is ON"
-            ;;
         d)
             dir=${OPTARG}
     esac
