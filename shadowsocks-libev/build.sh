@@ -46,9 +46,9 @@ sudo make install
 [ ! -d /etc/shadowsocks-libev ] && sudo mkdir -p /etc/shadowsocks-libev
 sudo cp -v acl/gfwlist.acl /etc/shadowsocks-libev
 popd
+popd
 [ ! -e /etc/systemd/system/shadowsocks-libev-server@.service ] && sudo cp -v systemd/shadowsocks-libev-server@.service /etc/systemd/system && sudo systemctl daemon-reload
 [ ! -e /etc/systemd/system/shadowsocks-libev-local@.service ] && sudo cp -v systemd/shadowsocks-libev-local@.service /etc/systemd/system && sudo systemctl daemon-reload
 [ ! -e /etc/rsyslog.d/30-shadowsocks-libev.conf ] && sudo cp -v rsyslog/30-shadowsocks-libev.conf /etc/rsyslog.d && sudo systemctl restart rsyslog
 [ ! -e /etc/logrotate.d/shadowsocks-libev ] && sudo cp -v logrotate/shadowsocks-libev /etc/logrotate.d
 [ ! -e /etc/sysctl.d/01-local.conf ] && sudo cp -v sysctl/01-local.conf /etc/sysctl.d && sudo sysctl -p
-popd
