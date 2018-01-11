@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 dir=/tmp/xyzrlee/shadowsocks-libev
-while getopts "id:" opt; do
+while getopts "d:" opt; do
     case ${opt} in
         d)
             dir=${OPTARG}
@@ -21,7 +21,7 @@ git -C libsodium pull           || git clone https://github.com/jedisct1/libsodi
 pushd libsodium
 git checkout stable
 ./autogen.sh
-./configure --prefix=/usr && make
+./configure --prefix=/usr && make && make check
 sudo make install
 popd
 sudo ldconfig
