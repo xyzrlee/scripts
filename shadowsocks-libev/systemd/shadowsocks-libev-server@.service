@@ -17,9 +17,9 @@ After=network.target
 [Service]
 Type=simple
 CapabilityBoundingSet=CAP_NET_BIND_SERVICE
-ExecStart=/usr/local/bin/ss-server -c /etc/shadowsocks-libev/ss-server-%i.json --acl /etc/shadowsocks-libev/ss-server.acl -u -v
+ExecStart=/usr/local/bin/ss-server -c /etc/shadowsocks-libev/ss-server-%i.json --acl /etc/shadowsocks-libev/ss-server.acl -u -6 -v
 SyslogIdentifier=ss-server-%i
-Restart=always
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
